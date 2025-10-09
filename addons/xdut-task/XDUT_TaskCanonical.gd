@@ -130,7 +130,7 @@ func _exit_tree() -> void:
 				if task_wref != null:
 					var task: MonitoredTaskBase = task_wref.get_ref()
 					if task != null:
-						task.release_cancel_with_cleanup()
+						task.release_cancel()
 			_deadlock_monitor_task_wrefs.clear()
 
 func _on_process_frame() -> void:
