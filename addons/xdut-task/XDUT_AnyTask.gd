@@ -31,7 +31,7 @@ static func create_with_extract_cancel(
 
 func cleanup() -> void:
 	for init_index: int in _init_array.size():
-		var init: Awaitable = _init_array[init_index]
+		var init := _init_array[init_index]
 		_init_array[init_index] = null
 		if init is TaskBase:
 			init.release(self)
