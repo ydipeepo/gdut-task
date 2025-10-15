@@ -27,16 +27,16 @@ func wait_temporary(object: Object, cancel: Cancel = null) -> Variant:
 	if _state == STATE_PENDING:
 		_state = STATE_PENDING_WITH_WAITERS
 	if _state == STATE_PENDING_WITH_WAITERS:
-		if not is_instance_valid(cancel) or cancel.requested.is_connected(release_cancel):
+		if not is_instance_valid(cancel) or cancel.requested.is_connected(release):
 			while true:
 				var sender: Object = await _release
 				if sender == null or sender == object: break
 		elif not cancel.is_requested:
-			cancel.requested.connect(release_cancel)
+			cancel.requested.connect(release.bind(object))
 			while true:
 				var sender: Object = await _release
 				if sender == null or sender == object: break
-			cancel.requested.disconnect(release_cancel)
+			cancel.requested.disconnect(release)
 		else:
 			release_cancel()
 	return _result
