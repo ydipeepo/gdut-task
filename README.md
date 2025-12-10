@@ -1,6 +1,6 @@
 <br />
 
-# ![GDUT Task](assets/texture/icon.png) XDUT Task
+# ![GDUT Task](assets/texture/icon.png) GDUT Task
 
 [![Release](https://badgen.net/github/release/ydipeepo/gdut-task)](https://github.com/ydipeepo/gdut-task/releases) [![MIT](https://badgen.net/github/license/ydipeepo/gdut-task)](https://github.com/ydipeepo/gdut-task/LICENSE)
 
