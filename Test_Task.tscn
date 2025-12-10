@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfu1el70148bc"]
+[gd_scene load_steps=5 format=3 uid="uid://bwdkiuyvrmueg"]
 
-[ext_resource type="Script" uid="uid://dwryhnupatmwl" path="res://Test_Task.gd" id="1_6j14v"]
+[ext_resource type="Script" uid="uid://dldo5o58nvyjw" path="res://Test_Task.gd" id="1_6j14v"]
+[ext_resource type="Theme" uid="uid://itmgkfdfuwrs" path="res://assets/theme/test.tres" id="1_sanqu"]
+[ext_resource type="Texture2D" uid="uid://cymk7r2khxnvl" path="res://assets/texture/icon.png" id="2_nhwj0"]
+
+[sub_resource type="SystemFont" id="SystemFont_lrpg4"]
 
 [node name="Test_Task" type="MarginContainer"]
 auto_translate_mode = 2
@@ -12,6 +16,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
+theme = ExtResource("1_sanqu")
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 48
@@ -24,7 +29,7 @@ texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
 localize_numeral_system = false
-theme_override_constants/separation = 0
+theme_override_constants/separation = 8
 
 [node name="Header" type="VBoxContainer" parent="Container"]
 auto_translate_mode = 2
@@ -33,38 +38,48 @@ texture_repeat = 1
 layout_mode = 2
 size_flags_horizontal = 3
 localize_numeral_system = false
-theme_override_constants/separation = 0
-metadata/_edit_group_ = true
 
-[node name="Title" type="Label" parent="Container/Header"]
+[node name="Title" type="HBoxContainer" parent="Container/Header"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Container/Header/Title"]
+layout_mode = 2
+texture = ExtResource("2_nhwj0")
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="Container/Header/Title"]
 auto_translate_mode = 2
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 localize_numeral_system = false
-theme_override_font_sizes/font_size = 20
-text = "XDUT Task"
+theme_override_fonts/font = SubResource("SystemFont_lrpg4")
+theme_override_font_sizes/font_size = 18
+text = "GDUT Task"
 vertical_alignment = 1
 
-[node name="Description" type="Label" parent="Container/Header"]
+[node name="Description" type="HBoxContainer" parent="Container/Header"]
+layout_mode = 2
+
+[node name="Padding" type="Control" parent="Container/Header/Description"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Container/Header/Description"]
 auto_translate_mode = 2
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 localize_numeral_system = false
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_font_sizes/font_size = 12
-text = "将来決まる値を共通のインターフェイスを通して扱うためのクラスセットを含む、非同期的スクリプティングを補助するためのアドオンです。"
+text = "This add-on helps GDScript pseudo-asynchronous scripting, including a set of classes to handle future-determined values through a shared interface."
 vertical_alignment = 1
 
 [node name="Separator_1" type="HSeparator" parent="Container"]
 auto_translate_mode = 2
-modulate = Color(1, 1, 1, 0.247059)
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 localize_numeral_system = false
 
@@ -75,657 +90,643 @@ texture_repeat = 1
 layout_mode = 2
 size_flags_vertical = 3
 localize_numeral_system = false
-theme_override_constants/separation = 0
 metadata/_edit_group_ = true
 
-[node name="Column_1_0_0" type="VBoxContainer" parent="Container/Content"]
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-localize_numeral_system = false
-theme_override_constants/separation = 0
-metadata/_edit_group_ = true
-
-[node name="Title" type="Label" parent="Container/Content/Column_1_0_0"]
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-localize_numeral_system = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = "1.0.0 に含まれる機能"
-vertical_alignment = 1
-
-[node name="Row" type="HBoxContainer" parent="Container/Content/Column_1_0_0"]
+[node name="Padding" type="Control" parent="Container/Content"]
+custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 
-[node name="Column_1" type="VBoxContainer" parent="Container/Content/Column_1_0_0/Row"]
+[node name="Column_1" type="VBoxContainer" parent="Container/Content"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="Completed" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Cancel_Canceled" type="CheckBox" parent="Container/Content/Column_1"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
+button_mask = 0
+text = "Cancel.canceled()"
+
+[node name="Cancel_WithOperators" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.with_operators()"
+
+[node name="Cancel_FromSignalName" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.from_signal_name()"
+
+[node name="Cancel_FromSignal" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.from_signal()"
+
+[node name="Cancel_From" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.from()"
+
+[node name="Cancel_Timeout" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.timeout()"
+
+[node name="Cancel_Deferred" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.deferred()"
+
+[node name="Cancel_Merged" type="CheckBox" parent="Container/Content/Column_1"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Cancel.merged()"
+
+[node name="Column_2" type="VBoxContainer" parent="Container/Content"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="Task_Completed" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
 button_mask = 0
 text = "Task.completed()"
 
-[node name="Canceled" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Task_Canceled" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
 text = "Task.canceled()"
 
-[node name="Never" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Task_Never" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
 text = "Task.never()"
 
-[node name="From" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Task_WithOperators" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
-text = "Task.from()"
+text = "Task.with_operators()"
 
-[node name="FromMethod" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Task_FromMethodName" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_method()"
-
-[node name="FromMethodName" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
 text = "Task.from_method_name()"
 
-[node name="FromCallback" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Task_FromMethod" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
-text = "Task.from_callback()"
+text = "Task.from_method()"
 
-[node name="FromCallbackName" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
+[node name="Task_FromBoundMethodName" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_callback_name()"
-
-[node name="FromSignal" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_signal()"
-
-[node name="FromSignalName" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_signal_name()"
-
-[node name="FromConditionalSignal" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_conditional_signal()"
-
-[node name="FromConditionalSignalName" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_conditional_signal_name()"
-
-[node name="Column_2" type="VBoxContainer" parent="Container/Content/Column_1_0_0/Row"]
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-
-[node name="All" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.all()"
-
-[node name="AllSettled" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.all_settled()"
-
-[node name="Any" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.any()"
-
-[node name="Race" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.race()"
-
-[node name="Defer" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.defer()"
-
-[node name="DeferProcess" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.defer_process()"
-
-[node name="DeferProcessFrame" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.defer_process_frame()"
-
-[node name="DeferPhysics" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.defer_physics()"
-
-[node name="DeferPhysicsFrame" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.defer_physics_frame()"
-
-[node name="Delay" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.delay()"
-
-[node name="DelayMsec" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.delay_msec()"
-
-[node name="DelayUsec" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_2"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.delay_usec()"
-
-[node name="Column_3" type="VBoxContainer" parent="Container/Content/Column_1_0_0/Row"]
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-
-[node name="Then" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_3"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.then()"
-
-[node name="ThenMethod" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_3"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.then_method()"
-
-[node name="ThenMethodName" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_3"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.then_method_name()"
-
-[node name="ThenCallback" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_3"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.then_callback()"
-
-[node name="ThenCallbackName" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_3"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.then_callback_name()"
-
-[node name="Unwrap" type="CheckBox" parent="Container/Content/Column_1_0_0/Row/Column_3"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.unwrap()"
-
-[node name="Column_1_1_0" type="VBoxContainer" parent="Container/Content"]
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-localize_numeral_system = false
-theme_override_constants/separation = 0
-metadata/_edit_group_ = true
-
-[node name="Title" type="Label" parent="Container/Content/Column_1_1_0"]
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-localize_numeral_system = false
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = "1.1.0 に含まれる機能"
-vertical_alignment = 1
-
-[node name="Row" type="HBoxContainer" parent="Container/Content/Column_1_1_0"]
-layout_mode = 2
-
-[node name="Column_1" type="VBoxContainer" parent="Container/Content/Column_1_1_0/Row"]
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-
-[node name="FromBoundMethod" type="CheckBox" parent="Container/Content/Column_1_1_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
-button_mask = 0
-text = "Task.from_bound_method()"
-
-[node name="FromBoundMethodName" type="CheckBox" parent="Container/Content/Column_1_1_0/Row/Column_1"]
-unique_name_in_owner = true
-auto_translate_mode = 2
-texture_filter = 1
-texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-localize_numeral_system = false
-focus_mode = 0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
 text = "Task.from_bound_method_name()"
 
-[node name="ThenBoundMethod" type="CheckBox" parent="Container/Content/Column_1_1_0/Row/Column_1"]
+[node name="Task_FromBoundMethod" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
-text = "Task.then_bound_method()"
+text = "Task.from_bound_method()"
 
-[node name="ThenBoundMethodName" type="CheckBox" parent="Container/Content/Column_1_1_0/Row/Column_1"]
+[node name="Task_FromSignalName" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
+button_mask = 0
+text = "Task.from_signal_name()"
+
+[node name="Task_FromSignal" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.from_signal()"
+
+[node name="Task_FromFilteredSignalName" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.from_filtered_signal_name()"
+
+[node name="Task_FromFilteredSignal" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.from_filtered_signal()"
+
+[node name="Task_From" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.from()"
+
+[node name="Task_ThenMethodName" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.then_method_name()"
+
+[node name="Task_ThenMethod" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.then_method()"
+
+[node name="Task_ThenBoundMethodName" type="CheckBox" parent="Container/Content/Column_2"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
 button_mask = 0
 text = "Task.then_bound_method_name()"
 
-[node name="AnyIndex" type="CheckBox" parent="Container/Content/Column_1_1_0/Row/Column_1"]
+[node name="Task_ThenBoundMethod" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
-text = "Task.any_index()"
+text = "Task.then_bound_method()"
 
-[node name="AllCount" type="CheckBox" parent="Container/Content/Column_1_1_0/Row/Column_1"]
+[node name="Task_Then" type="CheckBox" parent="Container/Content/Column_2"]
 unique_name_in_owner = true
 auto_translate_mode = 2
+visible = false
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 localize_numeral_system = false
 focus_mode = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_constants/h_separation = 8
-theme_override_font_sizes/font_size = 10
 button_mask = 0
-text = "Task.all_count()"
+text = "Task.then()"
+
+[node name="Column_3" type="VBoxContainer" parent="Container/Content"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="Task_All" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.all()"
+
+[node name="Task_AllSettled" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.all_settled()"
+
+[node name="Task_Any" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.any()"
+
+[node name="Task_Race" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.race()"
+
+[node name="Task_Count" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.count()"
+
+[node name="Task_Index" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.index()"
+
+[node name="Task_Delay" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.delay()"
+
+[node name="Task_Defer" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.defer()"
+
+[node name="Task_DeferIdleFrame" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.defer_idle_frame()"
+
+[node name="Task_DeferIdle" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.defer_idle()"
+
+[node name="Task_DeferPhysicsFrame" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.defer_physics_frame()"
+
+[node name="Task_DeferPhysics" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.defer_physics()"
+
+[node name="Task_Unwrap" type="CheckBox" parent="Container/Content/Column_3"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.unwrap()"
+
+[node name="Column_4" type="VBoxContainer" parent="Container/Content"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="Task_Load" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.load()"
+
+[node name="Task_HTTPGet" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_get()"
+
+[node name="Task_HTTPHead" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_head()"
+
+[node name="Task_HTTPPost" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_post()"
+
+[node name="Task_HTTPPut" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_put()"
+
+[node name="Task_HTTPDelete" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_delete()"
+
+[node name="Task_HTTPOptions" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_options()"
+
+[node name="Task_HTTPPatch" type="CheckBox" parent="Container/Content/Column_4"]
+unique_name_in_owner = true
+auto_translate_mode = 2
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+localize_numeral_system = false
+focus_mode = 0
+mouse_filter = 2
+button_mask = 0
+text = "Task.http_patch()"
 
 [node name="Separator_2" type="HSeparator" parent="Container"]
 auto_translate_mode = 2
-modulate = Color(1, 1, 1, 0.247059)
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 localize_numeral_system = false
 
@@ -735,19 +736,19 @@ texture_filter = 1
 texture_repeat = 1
 layout_mode = 2
 localize_numeral_system = false
-theme_override_constants/separation = 0
 metadata/_edit_group_ = true
+
+[node name="Padding" type="Control" parent="Container/Footer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
 
 [node name="Status" type="Label" parent="Container/Footer"]
 unique_name_in_owner = true
 auto_translate_mode = 2
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 size_flags_horizontal = 3
 localize_numeral_system = false
-theme_override_colors/font_color = Color(0.733333, 0.733333, 0.733333, 1)
-theme_override_font_sizes/font_size = 12
-text = "読み込み中..."
+text = "Loading..."
 vertical_alignment = 1

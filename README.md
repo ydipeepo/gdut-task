@@ -1,12 +1,8 @@
 <br />
 
-English | [日本語](README.ja_JP.md)
+# ![GDUT Task](assets/texture/icon.png) XDUT Task
 
-<br />
-
-# ![XDUT Task](assets/texture/icon.png) XDUT Task
-
-[![Release](https://badgen.net/github/release/ydipeepo/xdut-task)](https://github.com/ydipeepo/xdut-task/releases) [![MIT](https://badgen.net/github/license/ydipeepo/xdut-task)](https://github.com/ydipeepo/xdut-task/LICENSE)
+[![Release](https://badgen.net/github/release/ydipeepo/gdut-task)](https://github.com/ydipeepo/gdut-task/releases) [![MIT](https://badgen.net/github/license/ydipeepo/gdut-task)](https://github.com/ydipeepo/gdut-task/LICENSE)
 
 This add-on helps GDScript pseudo-asynchronous scripting, including a set of classes to handle future-determined values through a shared interface.
 
@@ -35,19 +31,15 @@ It was created for the following purposes:
 
 #### Installation
 
-1. `git clone https://github.com/ydipeepo/xdut-task.git` or [download release](https://github.com/ydipeepo/xdut-task/releases).
-2. Then copy `addons/xdut-task` directory into your project.
-3. And enable XDUT Task from your project settings.
-
-#### Reference
-
-📖 [Wiki](https://translate.kagi.com/github.com/ydipeepo/xdut-task/wiki) (Kagi Translated)
+1. `git clone https://github.com/ydipeepo/xdut-task.git` or [download release](https://github.com/ydipeepo/gdut-task/releases).
+2. Then copy `addons/gdut-task` directory into your project.
+3. And enable GDUT Task from your project settings.
 
 <br />
 
 ## License
 
-All contents of this project are licensed under the attached 🔗 [MIT](https://github.com/ydipeepo/xdut-task/blob/main/LICENSE) license.
+All contents of this project are licensed under the attached 🔗 [MIT](https://github.com/ydipeepo/gdut-task/blob/main/LICENSE) license.
 
 #### Attribution
 

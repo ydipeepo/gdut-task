@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://itmgkfdfuwrs"]
+
+[ext_resource type="Texture2D" uid="uid://gmaau4meit2r" path="res://assets/texture/h_separator.png" id="1_0eln2"]
+[ext_resource type="Texture2D" uid="uid://xybe266pfulq" path="res://assets/texture/checkbox_checked.png" id="1_8d58g"]
+[ext_resource type="FontFile" uid="uid://da2p5xi72tqjx" path="res://assets/font/gudluk/gudluk.fnt" id="1_gtrgw"]
+[ext_resource type="Texture2D" uid="uid://caqj1l38x5rih" path="res://assets/texture/checkbox_unchecked.png" id="2_xcvyj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0eln2"]
+texture = ExtResource("1_0eln2")
+texture_margin_top = 2.0
+texture_margin_bottom = 2.0
+axis_stretch_horizontal = 1
+
+[resource]
+CheckBox/colors/font_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_disabled_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_focus_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_hover_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_outline_color = Color(0, 0, 0, 1)
+CheckBox/colors/font_pressed_color = Color(0, 0, 0, 1)
+CheckBox/constants/h_separation = 8
+CheckBox/constants/icon_max_width = 12
+CheckBox/font_sizes/font_size = 8
+CheckBox/fonts/font = ExtResource("1_gtrgw")
+CheckBox/icons/checked = ExtResource("1_8d58g")
+CheckBox/icons/checked_disabled = ExtResource("1_8d58g")
+CheckBox/icons/unchecked = ExtResource("2_xcvyj")
+CheckBox/icons/unchecked_disabled = ExtResource("2_xcvyj")
+HBoxContainer/constants/separation = 16
+HSeparator/constants/separation = 24
+HSeparator/styles/separator = SubResource("StyleBoxTexture_0eln2")
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 4
+Label/font_sizes/font_size = 8
+Label/fonts/font = ExtResource("1_gtrgw")
+VBoxContainer/constants/separation = 8

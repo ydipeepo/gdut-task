@@ -8,47 +8,52 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
-config/name="XDUT Task"
-config/description="将来決まる値を共通のインターフェイスを通して扱うためのクラスセットを含む、GDScript 非同期的スクリプティングを補助するためのアドオンです。"
-config/tags=PackedStringArray("xdut")
-run/main_scene="res://Test_Task.tscn"
+config/name="GDUT Task"
+config/description="This add-on helps GDScript pseudo-asynchronous scripting, including a set of classes to handle future-determined values through a shared interface."
+config/tags=PackedStringArray("gdut")
+run/main_scene="uid://bwdkiuyvrmueg"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/bg_color=Color(0.93333334, 0.93333334, 0.93333334, 1)
 boot_splash/show_image=false
-boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="uid://djgik0v4bj5dt"
+config/icon="uid://cymk7r2khxnvl"
+boot_splash/stretch_mode=0
 
 [autoload]
 
-XDUT_TaskCanonical="*res://addons/xdut-task/XDUT_TaskCanonical.gd"
+GDUT_TaskCanonical="*res://addons/gdut-task/GDUT_TaskCanonical.gd"
 
 [display]
 
 window/size/viewport_width=1280
-window/size/viewport_height=640
+window/size/viewport_height=720
 window/size/resizable=false
+window/size/minimize_disabled=true
+window/size/maximize_disabled=true
 window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/xdut-task/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdut-task/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
-"res://addons/xdut-task/": "pink"
+"res://addons/gdut-task/": "pink"
 }
 
-[filesystem]
+[physics]
 
-import/fbx2gltf/enabled=false
-import/blender/enabled=false
+common/physics_ticks_per_second=15
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.93333334, 0.93333334, 0.93333334, 1)
