@@ -31,7 +31,7 @@ It was created for the following purposes:
 
 #### Installation
 
-1. `git clone https://github.com/ydipeepo/xdut-task.git` or [download release](https://github.com/ydipeepo/gdut-task/releases).
+1. `git clone https://github.com/ydipeepo/gdut-task.git` or [download release](https://github.com/ydipeepo/gdut-task/releases).
 2. Then copy `addons/gdut-task` directory into your project.
 3. And enable GDUT Task from your project settings.
 
