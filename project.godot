@@ -18,16 +18,16 @@ config/name="GDUT Task"
 config/description="This add-on helps GDScript pseudo-asynchronous scripting, including a set of classes to handle future-determined values through a shared interface."
 config/tags=PackedStringArray("gdut")
 run/main_scene="uid://bwdkiuyvrmueg"
-config/features=PackedStringArray("4.5", "GL Compatibility")
-boot_splash/bg_color=Color(0.93333334, 0.93333334, 0.93333334, 1)
+config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0.933333, 0.933333, 0.933333, 1)
 boot_splash/show_image=false
+boot_splash/stretch_mode=0
 boot_splash/use_filter=false
 config/icon="uid://cymk7r2khxnvl"
-boot_splash/stretch_mode=0
 
 [autoload]
 
-GDUT_TaskCanonical="*res://addons/gdut-task/GDUT_TaskCanonical.gd"
+GDUT_TaskCanonical="*uid://d4ixdr1hdia5t"
 
 [display]
 
@@ -48,6 +48,11 @@ folder_colors={
 "res://addons/gdut-task/": "pink"
 }
 
+[gdut]
+
+task/general/enable_strict_method_check=true
+task/general/enable_strict_signal_check=true
+
 [physics]
 
 common/physics_ticks_per_second=15
@@ -56,4 +61,4 @@ common/physics_ticks_per_second=15
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.93333334, 0.93333334, 0.93333334, 1)
+environment/defaults/default_clear_color=Color(0.933333, 0.933333, 0.933333, 1)

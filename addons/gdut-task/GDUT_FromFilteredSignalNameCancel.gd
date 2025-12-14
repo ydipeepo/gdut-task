@@ -1,4 +1,4 @@
-class_name GDUT_FromSignalNameCancel extends CustomCancel
+class_name GDUT_FromFilteredSignalNameCancel extends CustomCancel
 
 #------------------------------------------------------------------------------
 #	METHODS
@@ -7,7 +7,8 @@ class_name GDUT_FromSignalNameCancel extends CustomCancel
 static func create(
 	object: Object,
 	signal_name: StringName,
-	name := &"Cancel.from_signal_name") -> Cancel:
+	filter_args: Array,
+	name := &"Cancel.from_filtered_signal_name") -> Cancel:
 
 	#
 	# 事前チェック
@@ -19,12 +20,15 @@ static func create(
 	if not object.has_signal(signal_name):
 		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_NAME", signal_name))
 		return GDUT_CanceledCancel.create(name)
+	if not GDUT_Task.is_valid_cancel_from_filtered_signal_name(object, signal_name, filter_args):
+		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_MATCH", signal_name))
+		return GDUT_CanceledCancel.create(name)
 
 	#
 	# キャンセル作成
 	#
 
-	return new(object, signal_name, name)
+	return new(object, signal_name, filter_args, name)
 
 func finalize() -> void:
 	_object.disconnect(_signal_name, _on_completed)
@@ -34,18 +38,25 @@ func finalize() -> void:
 
 var _object: Object
 var _signal_name: StringName
+var _filter_args: Array
 
 func _init(
 	object: Object,
 	signal_name: StringName,
+	filter_args: Array,
 	name: StringName) -> void:
 
 	super(name)
 
 	_signal_name = signal_name
+	_filter_args = filter_args
 	_object = object
 	_object.connect(_signal_name, _on_completed)
 
 @warning_ignore("unused_parameter")
 func _on_completed(...args: Array) -> void:
-	request()
+	if args.size() != _filter_args.size():
+		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_MATCH", _signal_name))
+		request()
+	elif GDUT_Task.filter_signal_args(args, _filter_args):
+		request()

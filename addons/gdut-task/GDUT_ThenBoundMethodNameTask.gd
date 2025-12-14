@@ -22,22 +22,30 @@ static func create(
 			method_name,
 			name)
 	if not is_instance_valid(object):
-		GDUT_Task.error(&"INVALID_OBJECT")
+		push_error(GDUT_Task.get_message(&"BAD_OBJECT"))
 		return GDUT_CanceledTask.create(name)
 	if not object.has_method(method_name):
-		GDUT_Task.error(&"INVALID_METHOD_NAME", method_name)
+		push_error(GDUT_Task.get_message(&"BAD_METHOD_NAME", method_name))
 		return GDUT_CanceledTask.create(name)
 	var method_argc := object.get_method_argument_count(method_name)
 	match method_argc - bind_args.size():
-		0, \
-		1, \
+		0:
+			if not GDUT_Task.is_valid_task_then_bound_method_name_0(object, method_name, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method_name))
+				return GDUT_CanceledTask.create(name)
+		1:
+			if not GDUT_Task.is_valid_task_then_bound_method_name_1(object, method_name, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method_name))
+				return GDUT_CanceledTask.create(name)
 		2:
-			pass
+			if not GDUT_Task.is_valid_task_then_bound_method_name_2(object, method_name, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method_name))
+				return GDUT_CanceledTask.create(name)
 		_:
-			GDUT_Task.error(
-				&"INVALID_METHOD_ARGC",
+			push_error(GDUT_Task.get_message(
+				&"BAD_METHOD_ARGC",
 				method_name,
-				method_argc)
+				method_argc))
 			return GDUT_CanceledTask.create(name)
 
 	#
@@ -103,9 +111,8 @@ func _fork(
 					release_cancel()
 				_:
 					if not _antecedent_task is CustomTask or not _antecedent_task.is_pending:
-						GDUT_Task.panic(
-							&"UNKNOWN_STATE_RETURNED_BY_ANTECEDENT",
-							_antecedent_task)
+						print_debug(GDUT_Task.get_message(&"BAD_STATE_RETURNED_BY_ANTECEDENT", _antecedent_task))
+						breakpoint
 					release_cancel()
 		else:
 			match method_argc - bind_args.size():

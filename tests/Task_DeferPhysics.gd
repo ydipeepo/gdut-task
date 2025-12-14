@@ -1,16 +1,12 @@
 class_name Task_DeferPhysics extends Test
 
 func 状態遷移() -> void:
-	var canonical: Node = Engine \
-		.get_main_loop() \
-		.root \
-		.get_node(^"/root/GDUT_TaskCanonical")
 	var task := Task.defer_physics()
 	if not is_not_null(task):
 		return
 	is_true(task.is_pending)
 	var result: Variant = await task.wait()
-	are_equal(canonical.get_physics_process_delta_time(), result)
+	are_equal(GDUT_Task.get_physics_delta_time() if GDUT_Task.has_canonical() else 0.0, result)
 	is_true(task.is_completed)
 
 func 状態遷移_キャンセルあり_即時() -> void:

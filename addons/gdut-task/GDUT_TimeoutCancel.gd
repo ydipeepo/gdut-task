@@ -20,8 +20,11 @@ static func create(
 	# 事前チェック
 	#
 
+	if not GDUT_Task.has_canonical():
+		push_error(GDUT_Task.get_message(&"BAD_CANONICAL"))
+		return GDUT_CanceledCancel.create(name)
 	if timeout_ <= MIN_TIMEOUT:
-		GDUT_Task.error(&"INVALID_TIMEOUT")
+		push_error(GDUT_Task.get_message(&"BAD_TIMEOUT"))
 		return GDUT_CanceledCancel.create(name)
 	if timeout_ == MIN_TIMEOUT:
 		return GDUT_CanceledCancel.create(name)
@@ -51,7 +54,7 @@ func _init(
 
 	super(name)
 
-	_timer = GDUT_Task.get_canonical().create_timer(
+	_timer = GDUT_Task.create_timer(
 		timeout_,
 		ignore_pause,
 		ignore_time_scale)

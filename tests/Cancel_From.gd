@@ -33,6 +33,20 @@ func 状態遷移_キャンセルあり_遅延() -> void:
 		return
 	is_false(cancel.is_requested)
 
+func ディスパッチ先_from_filtered_signal_name() -> void:
+	var callsite := Callsite.new()
+	var cancel := Cancel.from(callsite, callsite.completed.get_name(), [])
+	if not is_instance_of_type(cancel, GDUT_FromFilteredSignalNameCancel):
+		return
+	is_false(cancel.is_requested)
+
+func ディスパッチ先_from_filtered_signal() -> void:
+	var callsite := Callsite.new()
+	var cancel := Cancel.from(callsite.completed, [])
+	if not is_instance_of_type(cancel, GDUT_FromFilteredSignalCancel):
+		return
+	is_false(cancel.is_requested)
+
 func ディスパッチ先_from_signal_name() -> void:
 	var callsite := Callsite.new()
 	var cancel := Cancel.from(callsite)

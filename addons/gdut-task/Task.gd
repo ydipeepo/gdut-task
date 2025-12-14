@@ -27,7 +27,9 @@ const STATE_CANCELED := 3
 
 ## Represents a placeholder for omitting filter matches.
 ## Used in [method from_filtered_signal] and [method from_filtered_signal_name].
-static var SKIP := Object.new()
+static var SKIP: Object:
+	get:
+		return GDUT_Task.get_skip()
 
 #-------------------------------------------------------------------------------
 #	PROPERTIES
@@ -172,7 +174,7 @@ static func from_method(method: Callable) -> Task:
 	return GDUT_FromMethodTask.create(method)
 
 ## Creates a [Task] from the specified method defined on an object with the arguments binding.
-## It is another interface of [method from_bound_method_name], not a vararg [param init_array].[br]
+## It is another interface of [method from_bound_method_name], not a vararg [param bind_args].[br]
 ## [br]
 ## [b]Note:[/b] This [Task] holds a strong reference to the [param object] until it is completed or canceled.
 static func from_bound_method_name_v(
@@ -218,7 +220,7 @@ static func from_bound_method_name(
 		bind_args)
 
 ## Creates a [Task] from the specified method with the arguments binding.
-## It is another interface of [method from_bound_method], not a vararg [param init_array].
+## It is another interface of [method from_bound_method], not a vararg [param bind_args].
 static func from_bound_method_v(method: Callable, bind_args: Array) -> Task:
 	return GDUT_FromBoundMethodTask.create(method, bind_args)
 
@@ -300,7 +302,7 @@ static func from_signal(signal_: Signal) -> Task:
 	return GDUT_FromSignalTask.create(signal_)
 
 ## Creates a [Task] from the specified signal defined on an object with the arguments filter.
-## It is another interface of [method from_filtered_signal_name], not a vararg [param init_array].[br]
+## It is another interface of [method from_filtered_signal_name], not a vararg [param filter_args].[br]
 ## [br]
 ## [b]Note:[/b] This [Task] holds a strong reference to the [param object] until it is completed or canceled.
 static func from_filtered_signal_name_v(
@@ -349,7 +351,7 @@ static func from_filtered_signal_name(
 		filter_args)
 
 ## Creates a [Task] from the specified signal with the arguments filter.
-## It is another interface of [method from_filtered_signal], not a vararg [param init_array].
+## It is another interface of [method from_filtered_signal], not a vararg [param filter_args].
 static func from_filtered_signal_v(
 	signal_: Signal,
 	filter_args: Array) -> Task:
@@ -387,7 +389,7 @@ static func from_filtered_signal(
 	return from_filtered_signal_v(signal_, filter_args)
 
 ## Creates a [Task] from the specified INIT.
-## It is another interface of [method from], not a vararg [param init_array].
+## It is another interface of [method from], not a vararg [param init].
 static func from_v(init: Variant) -> Task:
 	return GDUT_FromTask.create(init)
 
@@ -642,7 +644,7 @@ func then_bound_method(method: Callable, ...bind_args: Array) -> Task:
 
 ## Creates a continuation [Task] from the specified INIT
 ## that executes asynchronously when this [Task] completes.
-## It is another interface of [method then], not a vararg [param init_array].
+## It is another interface of [method then], not a vararg [param init].
 func then_v(init: Variant) -> Task:
 	return GDUT_ThenTask.create(self, init)
 
@@ -1196,13 +1198,13 @@ func _to_string() -> String:
 	var prefix: String
 	match get_state():
 		STATE_PENDING:
-			prefix = GDUT_Task.get_canonical().translate(&"TASK_STATE_PENDING")
+			prefix = GDUT_Task.get_message(&"TASK_STATE_PENDING")
 		STATE_PENDING_WITH_WAITERS:
-			prefix = GDUT_Task.get_canonical().translate(&"TASK_STATE_PENDING_WITH_WAITERS")
+			prefix = GDUT_Task.get_message(&"TASK_STATE_PENDING_WITH_WAITERS")
 		STATE_CANCELED:
-			prefix = GDUT_Task.get_canonical().translate(&"TASK_STATE_CANCELED")
+			prefix = GDUT_Task.get_message(&"TASK_STATE_CANCELED")
 		STATE_COMPLETED:
-			prefix = GDUT_Task.get_canonical().translate(&"TASK_STATE_COMPLETED")
+			prefix = GDUT_Task.get_message(&"TASK_STATE_COMPLETED")
 		_:
 			assert(false)
 	return &"%s<%s#%d>" % [prefix, get_name(), get_instance_id()]

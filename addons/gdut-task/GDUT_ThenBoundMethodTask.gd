@@ -17,19 +17,27 @@ static func create(
 	if bind_args.is_empty():
 		return GDUT_ThenMethodTask.create(antecedent_task, method, name)
 	if not method.is_valid():
-		GDUT_Task.error(&"INVALID_OBJECT_ASSOCIATED_WITH_METHOD")
+		push_error(GDUT_Task.get_message(&"BAD_OBJECT_ASSOCIATED_WITH_METHOD"))
 		return GDUT_CanceledTask.create(name)
 	var method_argc := method.get_argument_count()
 	match method_argc - bind_args.size():
-		0, \
-		1, \
+		0:
+			if not GDUT_Task.is_valid_task_then_bound_method_0(method, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method.get_method()))
+				return GDUT_CanceledTask.create(name)
+		1:
+			if not GDUT_Task.is_valid_task_then_bound_method_1(method, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method.get_method()))
+				return GDUT_CanceledTask.create(name)
 		2:
-			pass
+			if not GDUT_Task.is_valid_task_then_bound_method_2(method, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method.get_method()))
+				return GDUT_CanceledTask.create(name)
 		_:
-			GDUT_Task.error(
-				&"INVALID_METHOD_ARGC",
+			push_error(GDUT_Task.get_message(
+				&"BAD_METHOD_ARGC",
 				method.get_method(),
-				method_argc)
+				method_argc))
 			return GDUT_CanceledTask.create(name)
 
 	#
@@ -97,9 +105,8 @@ func _fork(method_argc: int, bind_args: Array) -> void:
 					release_cancel()
 				_:
 					if not _antecedent_task is CustomTask or not _antecedent_task.is_pending:
-						GDUT_Task.panic(
-							&"UNKNOWN_STATE_RETURNED_BY_ANTECEDENT",
-							_antecedent_task)
+						print_debug(GDUT_Task.get_message(&"BAD_STATE_RETURNED_BY_ANTECEDENT", _antecedent_task))
+						breakpoint
 					release_cancel()
 		else:
 			if _method.is_valid():

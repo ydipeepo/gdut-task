@@ -14,7 +14,7 @@ static func create(
 	#
 
 	if depth < 0:
-		GDUT_Task.error(&"INVALID_UNWRAP_DEPTH")
+		push_error(GDUT_Task.get_message(&"BAD_UNWRAP_DEPTH"))
 		return GDUT_CanceledTask.new(name)
 	if depth == 0:
 		return GDUT_FromTask.create(antecedent_task)
@@ -59,9 +59,10 @@ func _fork(depth: int) -> void:
 						release_cancel()
 					_:
 						if not _unwrapping_task is CustomTask or not _unwrapping_task.is_pending:
-							GDUT_Task.panic(
-								&"UNKNOWN_STATE_RETURNED_BY_ANTECEDENT",
-								_unwrapping_task)
+							print_debug(GDUT_Task.get_message(
+								&"BAD_STATE_RETURNED_BY_ANTECEDENT",
+								_unwrapping_task))
+							breakpoint
 						release_cancel()
 			else:
 				if result is Awaitable and depth != 0:
