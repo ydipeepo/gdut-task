@@ -14,21 +14,26 @@ static func create(
 	#
 
 	if not is_instance_valid(object):
-		GDUT_Task.error(&"INVALID_OBJECT")
+		push_error(GDUT_Task.get_message(&"BAD_OBJECT"))
 		return GDUT_CanceledTask.create(name)
 	if not object.has_method(method_name):
-		GDUT_Task.error(&"INVALID_METHOD_NAME", method_name)
+		push_error(GDUT_Task.get_message(&"BAD_METHOD_NAME", method_name))
 		return GDUT_CanceledTask.create(name)
 	var method_argc := object.get_method_argument_count(method_name)
 	match method_argc:
-		0, \
+		0:
+			if not GDUT_Task.is_valid_task_from_method_name_0(object, method_name):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method_name))
+				return GDUT_CanceledTask.create(name)
 		1:
-			pass
+			if not GDUT_Task.is_valid_task_from_method_name_1(object, method_name):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method_name))
+				return GDUT_CanceledTask.create(name)
 		_:
-			GDUT_Task.error(
-				&"INVALID_METHOD_ARGC",
+			push_error(GDUT_Task.get_message(
+				&"BAD_METHOD_ARGC",
 				method_name,
-				method_argc)
+				method_argc))
 			return GDUT_CanceledTask.create(name)
 
 	#

@@ -14,7 +14,10 @@ static func create(
 	#
 
 	if not is_instance_valid(signal_.get_object()) or signal_.is_null():
-		GDUT_Task.error(&"INVALID_OBJECT_ASSOCIATED_WITH_SIGNAL")
+		push_error(GDUT_Task.get_message(&"BAD_OBJECT_ASSOCIATED_WITH_SIGNAL"))
+		return GDUT_CanceledTask.create(name)
+	if not GDUT_Task.is_valid_task_from_filtered_signal(signal_, filter_args):
+		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_MATCH", signal_.get_name()))
 		return GDUT_CanceledTask.create(name)
 
 	#
@@ -67,7 +70,7 @@ func _init(signal_: Signal, filter_args: Array, name: StringName) -> void:
 
 func _on_completed(...args: Array) -> void:
 	if args.size() != _filter_args.size():
-		GDUT_Task.error(&"INVALID_SIGNAL_MATCH", _signal.get_name())
+		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_MATCH", _signal.get_name()))
 		release_cancel()
-	elif _match(args):
+	elif GDUT_Task.filter_signal_args(args, _filter_args):
 		release_complete(args)

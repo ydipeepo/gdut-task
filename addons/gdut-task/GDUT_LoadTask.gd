@@ -20,10 +20,10 @@ class Worker extends Node:
 		match status:
 			ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
 				if is_inside_tree():
-					GDUT_Task.error(
-						&"TASK_RESOURCE_LOADER_INVALID_RESOURCE",
+					push_error(GDUT_Task.get_message(
+						&"TASK_RESOURCE_LOADER_BAD_RESOURCE",
 						resource_path,
-						resource_type)
+						resource_type))
 					get_parent().remove_child(self)
 				aborted.emit()
 				free()
@@ -31,10 +31,10 @@ class Worker extends Node:
 			#	pass
 			ResourceLoader.THREAD_LOAD_FAILED:
 				if is_inside_tree():
-					GDUT_Task.error(
+					push_error(GDUT_Task.get_message(
 						&"TASK_RESOURCE_LOADER_FAILED",
 						resource_path,
-						resource_type)
+						resource_type))
 					get_parent().remove_child(self)
 				aborted.emit()
 				free()
@@ -59,15 +59,16 @@ static func create(
 	# 事前チェック
 	#
 
+	if not GDUT_Task.has_canonical():
+		push_error(GDUT_Task.get_message(&"BAD_CANONICAL"))
+		return GDUT_CanceledTask.create(name)
 	var worker: Worker
-	for node: Node in GDUT_Task.get_canonical().get_children():
-		worker = node as Worker
-		if worker != null:
-			if \
-				worker.resource_path == resource_path and \
-				worker.resource_type == resource_type:
-				break
-			worker = null
+	for worker_candidate: Worker in GDUT_Task.get_workers_of(Worker):
+		if \
+			worker_candidate.resource_path == resource_path and \
+			worker_candidate.resource_type == resource_type:
+			worker = worker_candidate
+			break
 	if worker == null:
 		var error := ResourceLoader.load_threaded_request(
 			resource_path,
@@ -78,7 +79,7 @@ static func create(
 			worker = Worker.new()
 			worker.resource_path = resource_path
 			worker.resource_type = resource_type
-			GDUT_Task.get_canonical().add_child(worker)
+			GDUT_Task.add_worker(worker)
 	if worker == null:
 		return GDUT_CanceledTask.create(name)
 

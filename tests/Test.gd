@@ -65,7 +65,11 @@ func is_not_null(value: Variant, message := "") -> bool:
 	_case_assert_results.push_back(result)
 	return result.condition
 
-func is_instance_of_type(value: Variant, expected_type: Variant, message := "") -> bool:
+func is_instance_of_type(
+	value: Variant,
+	expected_type: Variant,
+	message := "") -> bool:
+
 	var result := {
 		"condition": is_instance_of(value, expected_type),
 		"message": "is_instance_of_type(%s, %s)" % [value, expected_type.get_global_name() if expected_type is Script else expected_type] if message.is_empty() else message,
@@ -147,10 +151,10 @@ func are_equal(expected: Variant, value: Variant, message := "") -> bool:
 		TYPE_OBJECT, \
 		TYPE_CALLABLE, \
 		TYPE_SIGNAL:
-			if typeof(expected) == typeof(value):
+			if typeof(value) == typeof(expected):
 				result.condition = expected == value
 		TYPE_FLOAT:
-			if typeof(expected) == typeof(value):
+			if typeof(value) == typeof(expected):
 				result.condition = is_equal_approx(expected, value)
 		TYPE_VECTOR2, \
 		TYPE_VECTOR3, \
@@ -164,10 +168,10 @@ func are_equal(expected: Variant, value: Variant, message := "") -> bool:
 		TYPE_COLOR, \
 		TYPE_TRANSFORM2D, \
 		TYPE_TRANSFORM3D:
-			if typeof(expected) == typeof(value):
+			if typeof(value) == typeof(expected):
 				result.condition = expected.is_equal_approx(value)
 		TYPE_ARRAY:
-			if typeof(expected) == TYPE_ARRAY:
+			if typeof(value) == TYPE_ARRAY:
 				if expected.size() == value.size():
 					var equal := true
 					for index: int in expected.size():

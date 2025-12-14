@@ -11,7 +11,7 @@ static func create(init_array: Array, name := &"Cancel.merged") -> Cancel:
 
 	match init_array.size():
 		0:
-			GDUT_Task.error(&"EMPTY_INIT_ARRAY")
+			push_error(GDUT_Task.get_message(&"BAD_INIT_ARRAY"))
 			return GDUT_CanceledCancel.create(name)
 		1:
 			return GDUT_FromCancel.create(init_array.front(), name)

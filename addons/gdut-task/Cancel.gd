@@ -4,6 +4,16 @@
 class_name Cancel
 
 #-------------------------------------------------------------------------------
+#	CONSTANTS
+#-------------------------------------------------------------------------------
+
+## Represents a placeholder for omitting filter matches.
+## Used in [method from_filtered_signal] and [method from_filtered_signal_name].
+static var SKIP: Object:
+	get:
+		return GDUT_Task.get_skip()
+
+#-------------------------------------------------------------------------------
 #	SIGNALS
 #-------------------------------------------------------------------------------
 
@@ -50,7 +60,7 @@ static func with_operators() -> Array:
 ## s.emit()
 ## assert(c.is_requested)
 ## [/codeblock]
-## [b]Note:[/b] This [Task] holds a strong reference to the [param object] until it is requested.
+## [b]Note:[/b] This [Cancel] holds a strong reference to the [param object] until it is requested.
 static func from_signal_name(
 	object: Object,
 	signal_name := &"completed") -> Cancel:
@@ -69,8 +79,85 @@ static func from_signal_name(
 static func from_signal(signal_: Signal) -> Cancel:
 	return GDUT_FromSignalCancel.create(signal_)
 
+## Creates a [Cancel] from the specified signal defined on an object with the arguments filter.
+## It is another interface of [method from_filtered_signal_name], not a vararg [param filter_args].[br]
+static func from_filtered_signal_name_v(
+	object: Object,
+	signal_name: StringName,
+	filter_args: Array) -> Cancel:
+
+	return GDUT_FromFilteredSignalNameCancel.create(
+		object,
+		signal_name,
+		filter_args)
+
+## Creates a [Cancel] from the specified signal defined on an object with the arguments filter.
+## [codeblock]
+## signal s(a, b)
+##
+## var c = Cancel.from_filtered_signal_name(self, &"s", 78, true)
+## s.emit(45, true)
+## assert(not c.is_requested)
+## s.emit(78, true)
+## assert(c.is_requested)
+## [/codeblock]
+## You can also specify wildcard objects ([member Cancel.SKIP]) in the filter:
+## [codeblock]
+## signal s(a, b)
+##
+## var c = Cancel.from_filtered_signal_name(self, &"s", Cancel.SKIP, true)
+## s.emit(78, false)
+## assert(not c.is_requested)
+## s.emit(78, true)
+## assert(c.is_requested)
+## [/codeblock]
+## [b]Note:[/b] This [Cancel] holds a strong reference to the [param object] until it is requested.
+static func from_filtered_signal_name(
+	object: Object,
+	signal_name: StringName,
+	...filter_args: Array) -> Cancel:
+
+	return from_filtered_signal_name_v(
+		object,
+		signal_name,
+		filter_args)
+
+## Creates a [Cancel] from the specified signal with the arguments filter.
+## It is another interface of [method from_filtered_signal], not a vararg [param filter_args].
+static func from_filtered_signal_v(
+	signal_: Signal,
+	filter_args: Array) -> Cancel:
+
+	return GDUT_FromFilteredSignalCancel.create(signal_, filter_args)
+
+## Creates a [Cancel] from the specified signal with the arguments filter.
+## [codeblock]
+## signal s(a, b)
+##
+## var c = Cancel.from_filtered_signal(s, 78, true)
+## s.emit(45, true)
+## assert(not c.is_requested)
+## s.emit(78, true)
+## assert(c.is_requested)
+## [/codeblock]
+## You can also specify wildcard objects ([member Cancel.SKIP]) in the filter:
+## [codeblock]
+## signal s(a, b)
+##
+## var t = Cancel.from_filtered_signal(s, Cancel.SKIP, true)
+## s.emit(78, false)
+## assert(not c.is_requested)
+## s.emit(78, true)
+## assert(c.is_requested)
+## [/codeblock]
+static func from_filtered_signal(
+	signal_: Signal,
+	...filter_args: Array) -> Cancel:
+
+	return from_filtered_signal_v(signal_, filter_args)
+
 ## Creates a [Cancel] from the specified INIT.
-## It is another interface of [method from], not a vararg [param init_array].
+## It is another interface of [method from], not a vararg [param init].
 static func from_v(init: Array) -> Cancel:
 	return GDUT_FromCancel.create(init)
 
@@ -85,34 +172,30 @@ static func from_v(init: Array) -> Cancel:
 ## # Lower items have lower priority.
 ## #
 ##
+## # Dispatches from_filtered_signal_name,
+## # if a signal is defined.
+## c = Cancel.from(Object, String|StringName, Array)
+##
 ## # Dispatches from_signal_name,
 ## # if a method is defined.
-## c = Cancel.from_v([Object, String|StringName])
+## c = Cancel.from(Object, String|StringName)
+##
+## # Dispatches from_filtered_signal.
+## c = Cancel.from(Signal, Array)
 ##
 ## # Dispatches from_signal,
 ## # if a signal is defined.
-## c = Cancel.from_v([Signal])
+## c = Cancel.from(Signal)
 ##
 ## # Wraps specified Cancel.
-## c = Cancel.from_v([Cancel])
+## c = Cancel.from(Cancel)
 ##
 ## # Dispatches from_signal_name,
 ## # if a 'completed' signal is defined.
-## c = Cancel.from_v([Object])
-##
-## # Dispatches from_signal,
-## # if a signal is defined.
-## c = Cancel.from_v(Signal)
-##
-## # Wraps specified Cancel.
-## c = Cancel.from_v(Cancel)
-##
-## # Dispatches from_signal_name,
-## # if a 'completed' signal is defined.
-## c = Cancel.from_v(Object)
+## c = Cancel.from(Object)
 ##
 ## # Dispatches canceled.
-## c = Cancel.from_v()
+## c = Cancel.from()
 ## [/codeblock]
 static func from(...init: Array) -> Cancel:
 	return from_v(init)
@@ -158,7 +241,7 @@ func get_requested() -> bool
 #-------------------------------------------------------------------------------
 
 func _to_string() -> String:
-	var prefix: String = GDUT_Task.get_canonical().translate(
+	var prefix: String = GDUT_Task.get_message(
 		&"CANCEL_STATE_REQUESTED"
 		if is_requested else
 		&"CANCEL_STATE_PENDING")

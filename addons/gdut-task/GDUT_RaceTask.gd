@@ -10,7 +10,7 @@ static func create(init_array: Array, name := &"Task.race") -> Task:
 	#
 
 	if init_array.is_empty():
-		GDUT_Task.error(&"EMPTY_INIT_ARRAY")
+		push_error(GDUT_Task.get_message(&"BAD_INIT_ARRAY"))
 		return GDUT_NeverTask.create(name)
 
 	#
@@ -60,10 +60,11 @@ func _fork(task: Awaitable, index: int) -> void:
 					release_complete(GDUT_CanceledTask.create())
 				_:
 					if not task is CustomTask or not task.is_pending:
-						GDUT_Task.panic(
-							&"UNKNOWN_STATE_RETURNED_BY_INIT",
+						print_debug(GDUT_Task.get_message(
+							&"BAD_STATE_RETURNED_BY_INIT",
 							task,
-							index)
+							index))
+						breakpoint
 					release_cancel()
 		else:
 			release_complete(GDUT_CompletedTask.create(result))

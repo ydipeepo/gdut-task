@@ -201,10 +201,10 @@ func 状態遷移_フォーク_シグナル_フィルタ_キャンセルあり_�
 func スコープ_シグナル() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed.get_name())
+		var task := Task.from_filtered_signal(callsite.completed)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed.emit()
 		is_true(task.is_completed); are_equal(1, callsite.get_reference_count())
 		is_empty(await task.wait())
@@ -214,10 +214,10 @@ func スコープ_シグナル() -> void:
 func スコープ_シグナル_キャンセルあり_即時() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed.get_name())
+		var task := Task.from_filtered_signal(callsite.completed)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed.emit()
 		is_true(task.is_completed); are_equal(1, callsite.get_reference_count())
 		is_empty(await task.wait(Cancel.canceled()))
@@ -227,10 +227,10 @@ func スコープ_シグナル_キャンセルあり_即時() -> void:
 func スコープ_シグナル_キャンセルあり_遅延() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed.get_name())
+		var task := Task.from_filtered_signal(callsite.completed)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed.emit()
 		is_true(task.is_completed); are_equal(1, callsite.get_reference_count())
 		is_empty(await task.wait(Cancel.deferred()))
@@ -240,12 +240,12 @@ func スコープ_シグナル_キャンセルあり_遅延() -> void:
 func スコープ_フォーク_シグナル() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed.get_name())
+		var task := Task.from_filtered_signal(callsite.completed)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed.emit.call_deferred()
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		is_empty(await task.wait())
 		is_true(task.is_completed); are_equal(2, callsite.get_reference_count())
 		await wait_defer()
@@ -255,12 +255,12 @@ func スコープ_フォーク_シグナル() -> void:
 func スコープ_フォーク_シグナル_キャンセルあり_即時() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed.get_name())
+		var task := Task.from_filtered_signal(callsite.completed)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed.emit.call_deferred()
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		is_null(await task.wait(Cancel.canceled()))
 		is_true(task.is_canceled); are_equal(1, callsite.get_reference_count())
 		await wait_defer()
@@ -270,12 +270,12 @@ func スコープ_フォーク_シグナル_キャンセルあり_即時() -> vo
 func スコープ_フォーク_シグナル_キャンセルあり_遅延() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed.get_name())
+		var task := Task.from_filtered_signal(callsite.completed)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed.emit.call_deferred()
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		is_empty(await task.wait(Cancel.deferred()))
 		is_true(task.is_completed); are_equal(2, callsite.get_reference_count())
 		await wait_defer()
@@ -285,12 +285,12 @@ func スコープ_フォーク_シグナル_キャンセルあり_遅延() -> vo
 func スコープ_シグナル_フィルタ() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed_params.get_name(), Task.SKIP, 78)
+		var task := Task.from_filtered_signal(callsite.completed_params, Task.SKIP, 78)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 12)
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 78)
 		is_true(task.is_completed); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 34)
@@ -302,12 +302,12 @@ func スコープ_シグナル_フィルタ() -> void:
 func スコープ_シグナル_フィルタ_キャンセルあり_即時() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed_params.get_name(), Task.SKIP, 78)
+		var task := Task.from_filtered_signal(callsite.completed_params, Task.SKIP, 78)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 12)
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 78)
 		is_true(task.is_completed); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 34)
@@ -319,12 +319,12 @@ func スコープ_シグナル_フィルタ_キャンセルあり_即時() -> vo
 func スコープ_シグナル_フィルタ_キャンセルあり_遅延() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed_params.get_name(), Task.SKIP, 78)
+		var task := Task.from_filtered_signal(callsite.completed_params, Task.SKIP, 78)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 12)
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 78)
 		is_true(task.is_completed); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit(45, 34)
@@ -336,12 +336,12 @@ func スコープ_シグナル_フィルタ_キャンセルあり_遅延() -> vo
 func スコープ_フォーク_シグナル_フィルタ() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed_params.get_name(), Task.SKIP, 78)
+		var task := Task.from_filtered_signal(callsite.completed_params, Task.SKIP, 78)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit.call_deferred(45, 78)
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		are_equal([45, 78], await task.wait())
 		is_true(task.is_completed); are_equal(2, callsite.get_reference_count())
 		await wait_defer()
@@ -351,12 +351,12 @@ func スコープ_フォーク_シグナル_フィルタ() -> void:
 func スコープ_フォーク_シグナル_フィルタ_キャンセルあり_即時() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed_params.get_name(), Task.SKIP, 78)
+		var task := Task.from_filtered_signal(callsite.completed_params, Task.SKIP, 78)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit.call_deferred(45, 78)
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		is_null(await task.wait(Cancel.canceled()))
 		is_true(task.is_canceled); are_equal(1, callsite.get_reference_count())
 		await wait_defer()
@@ -366,12 +366,12 @@ func スコープ_フォーク_シグナル_フィルタ_キャンセルあり_�
 func スコープ_フォーク_シグナル_フィルタ_キャンセルあり_遅延() -> void:
 	var callsite := Callsite.new()
 	if "scope":
-		var task := Task.from_filtered_signal_name(callsite, callsite.completed_params.get_name(), Task.SKIP, 78)
+		var task := Task.from_filtered_signal(callsite.completed_params, Task.SKIP, 78)
 		if not is_not_null(task):
 			return
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		callsite.completed_params.emit.call_deferred(45, 78)
-		is_true(task.is_pending); are_equal(2, callsite.get_reference_count())
+		is_true(task.is_pending); are_equal(1, callsite.get_reference_count())
 		are_equal([45, 78], await task.wait(Cancel.deferred()))
 		is_true(task.is_completed); are_equal(2, callsite.get_reference_count())
 		await wait_defer()

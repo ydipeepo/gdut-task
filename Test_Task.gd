@@ -6,6 +6,8 @@ func _ready() -> void:
 		Cancel_WithOperators,
 		Cancel_FromSignalName,
 		Cancel_FromSignal,
+		Cancel_FromFilteredSignalName,
+		Cancel_FromFilteredSignal,
 		Cancel_From,
 		Cancel_Timeout,
 		Cancel_Deferred,

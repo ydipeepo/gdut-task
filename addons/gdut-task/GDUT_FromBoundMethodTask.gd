@@ -16,18 +16,23 @@ static func create(
 	if bind_args.is_empty():
 		return GDUT_FromMethodTask.create(method, name)
 	if not method.is_valid():
-		GDUT_Task.error(&"INVALID_OBJECT_ASSOCIATED_WITH_METHOD")
+		push_error(GDUT_Task.get_message(&"BAD_OBJECT_ASSOCIATED_WITH_METHOD"))
 		return GDUT_CanceledTask.create(name)
 	var method_argc := method.get_argument_count()
 	match method_argc - bind_args.size():
-		0, \
+		0:
+			if not GDUT_Task.is_valid_task_from_bound_method_0(method, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method.get_method()))
+				return GDUT_CanceledTask.create(name)
 		1:
-			pass
+			if not GDUT_Task.is_valid_task_from_bound_method_1(method, bind_args):
+				push_error(GDUT_Task.get_message(&"BAD_METHOD_ARGS", method.get_method()))
+				return GDUT_CanceledTask.create(name)
 		_:
-			GDUT_Task.error(
-				&"INVALID_METHOD_ARGC",
+			push_error(GDUT_Task.get_message(
+				&"BAD_METHOD_ARGC",
 				method.get_method(),
-				method_argc)
+				method_argc - bind_args.size()))
 			return GDUT_CanceledTask.create(name)
 
 	#

@@ -14,10 +14,10 @@ static func create(
 	#
 
 	if not is_instance_valid(object):
-		GDUT_Task.error(&"INVALID_OBJECT")
+		push_error(GDUT_Task.get_message(&"BAD_OBJECT"))
 		return GDUT_CanceledTask.create(name)
 	if not object.has_signal(signal_name):
-		GDUT_Task.error(&"INVALID_SIGNAL_NAME", signal_name)
+		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_NAME", signal_name))
 		return GDUT_CanceledTask.create(name)
 
 	#
