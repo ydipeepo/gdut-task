@@ -11,7 +11,7 @@ class_name Cancel
 ## Used in [method from_filtered_signal] and [method from_filtered_signal_name].
 static var SKIP: Object:
 	get:
-		return GDUT_Task.get_skip()
+		return GDUT_Task.get_cancel_wildcard()
 
 #-------------------------------------------------------------------------------
 #	SIGNALS

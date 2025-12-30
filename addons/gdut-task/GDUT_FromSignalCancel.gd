@@ -10,7 +10,7 @@ static func create(signal_: Signal, name := &"Cancel.from_signal") -> Cancel:
 	#
 
 	if not is_instance_valid(signal_.get_object()) or signal_.is_null():
-		push_error(GDUT_Task.get_message(&"BAD_OBJECT_ASSOCIATED_WITH_SIGNAL"))
+		GDUT_Task.print_error(&"BAD_OBJECT_ASSOCIATED_WITH_SIGNAL")
 		return GDUT_CanceledCancel.create(name)
 
 	#

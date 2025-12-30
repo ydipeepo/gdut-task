@@ -27,9 +27,9 @@ func get_indefinitely_pending() -> bool
 func _init(name: StringName) -> void:
 	super(name)
 
-	if not GDUT_Task.has_canonical():
-		push_error(GDUT_Task.get_message(&"BAD_CANONICAL"))
+	if GDUT_Task.canonical == null:
+		GDUT_Task.print_error(&"ADDON_NOT_READY")
 		request()
 		return
 
-	GDUT_Task.monitor_cancel(self)
+	GDUT_Task.canonical.monitor_cancel(self)

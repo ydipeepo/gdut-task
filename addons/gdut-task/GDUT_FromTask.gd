@@ -112,10 +112,9 @@ func _fork() -> void:
 					release_cancel()
 				_:
 					if not _task is CustomTask or not _task.is_pending:
-						print_debug(GDUT_Task.get_message(
-							&"BAD_STATE_RETURNED_BY_ANTECEDENT",
-							_task))
-						breakpoint
+						GDUT_Task.print_fatal(
+							&"UNKNOWN_STATE_RETURNED_BY_ANTECEDENT",
+							_task)
 					release_cancel()
 		else:
 			release_complete(result)

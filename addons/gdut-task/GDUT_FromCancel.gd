@@ -47,7 +47,7 @@ static func create(init: Variant, name := &"Cancel.from") -> Cancel:
 		else:
 			return GDUT_FromSignalNameCancel.create(init, &"completed", name)
 
-	push_error(GDUT_Task.get_message(&"BAD_INIT"))
+	GDUT_Task.print_error(&"BAD_INIT")
 	return GDUT_CanceledCancel.create(name)
 
 func finalize() -> void:

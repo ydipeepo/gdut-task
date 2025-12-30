@@ -14,10 +14,12 @@ static func create(
 	#
 
 	if not is_instance_valid(signal_.get_object()) or signal_.is_null():
-		push_error(GDUT_Task.get_message(&"BAD_OBJECT_ASSOCIATED_WITH_SIGNAL"))
+		GDUT_Task.print_error(&"BAD_OBJECT_ASSOCIATED_WITH_SIGNAL")
 		return GDUT_CanceledTask.create(name)
-	if not GDUT_Task.is_valid_task_from_filtered_signal(signal_, filter_args):
-		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_MATCH", signal_.get_name()))
+	if not GDUT_Task.validate_task_from_filtered_signal(signal_, filter_args):
+		GDUT_Task.print_error(
+			&"SIGNAL_SIGNATURE_NOT_MATCH",
+			signal_.get_name())
 		return GDUT_CanceledTask.create(name)
 
 	#
@@ -38,29 +40,6 @@ func finalize() -> void:
 var _filter_args: Array
 var _signal: Signal
 
-static func _match_arg(a: Variant, b: Variant) -> bool:
-	match typeof(a):
-		TYPE_OBJECT:
-			if a == SKIP:
-				return true
-		TYPE_STRING, \
-		TYPE_STRING_NAME:
-			match typeof(b):
-				TYPE_STRING, \
-				TYPE_STRING_NAME:
-					if a == b:
-						return true
-		_:
-			if typeof(a) == typeof(b) and a == b:
-				return true
-	return false
-
-func _match(args: Array) -> bool:
-	for i: int in _filter_args.size():
-		if not _match_arg(_filter_args[i], args[i]):
-			return false
-	return true
-
 func _init(signal_: Signal, filter_args: Array, name: StringName) -> void:
 	super(name)
 
@@ -70,7 +49,9 @@ func _init(signal_: Signal, filter_args: Array, name: StringName) -> void:
 
 func _on_completed(...args: Array) -> void:
 	if args.size() != _filter_args.size():
-		push_error(GDUT_Task.get_message(&"BAD_SIGNAL_MATCH", _signal.get_name()))
+		GDUT_Task.print_error(
+			&"SIGNAL_SIGNATURE_NOT_MATCH",
+			_signal.get_name())
 		release_cancel()
-	elif GDUT_Task.filter_signal_args(args, _filter_args):
+	elif GDUT_Task.match_task_signal_args(args, _filter_args):
 		release_complete(args)
