@@ -12,7 +12,6 @@ func _ready() -> void:
 		Cancel_Timeout,
 		Cancel_Deferred,
 		Cancel_Merged,
-
 		Task_Completed,
 		Task_Canceled,
 		Task_Never,
@@ -39,10 +38,10 @@ func _ready() -> void:
 		Task_Index,
 		Task_Delay,
 		Task_Defer,
-		Task_DeferIdle,
-		Task_DeferPhysics,
 		Task_DeferIdleFrame,
+		Task_DeferIdle,
 		Task_DeferPhysicsFrame,
+		Task_DeferPhysics,
 		Task_Unwrap,
 		Task_Load,
 	]
@@ -65,12 +64,21 @@ func _ready() -> void:
 		var check: CheckBox = get_node("%" + test_script.get_global_name())
 		check.visible = true
 
+	var test_passed := 0
+	var test_failed := 0
+
 	for i: int in test_set.size():
 		var test_script := test_set[i]
 		var test: Test = test_script.new()
-		%Status.text = "Running test... (%d/%d)" % [i + 1, test_set.size()]
+		%Status.text = "%d/%d Running test..." % [i + 1, test_set.size()]
 		if await test.wait():
 			var check: CheckBox = get_node("%" + test_script.get_global_name())
 			check.button_pressed = true
+			test_passed += 1
+		else:
+			test_failed += 1
 
-	%Status.text = "All test passed."
+	if test_failed == 0:
+		%Status.text = "All tests passed."
+	else:
+		%Status.text = "%d/%d tests passed." % [test_passed, test_passed + test_failed]

@@ -65,11 +65,10 @@ func _fork(task: Awaitable, index: int, result_set: Array) -> void:
 					release_cancel()
 				_:
 					if not task is CustomTask or not task.is_pending:
-						print_debug(GDUT_Task.get_message(
-							&"BAD_STATE_RETURNED_BY_INIT",
+						GDUT_Task.print_fatal(
+							&"UNKNOWN_STATE_RETURNED_BY_INIT",
 							task,
-							index))
-						breakpoint
+							index)
 					release_cancel()
 		else:
 			result_set[index] = result

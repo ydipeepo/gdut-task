@@ -6,7 +6,7 @@ func 状態遷移() -> void:
 		return
 	is_true(task.is_pending)
 	var result: Variant = await task.wait()
-	are_equal(GDUT_Task.get_physics_delta_time() if GDUT_Task.has_canonical() else 0.0, result)
+	are_equal(0.0 if GDUT_Task.canonical == null else GDUT_Task.canonical.get_physics_process_delta_time(), result)
 	is_true(task.is_completed)
 
 func 状態遷移_キャンセルあり_即時() -> void:

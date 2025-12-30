@@ -9,8 +9,8 @@ static func create(name := &"Task.defer_idle_frame") -> Task:
 	# 事前チェック
 	#
 
-	if not GDUT_Task.has_canonical():
-		push_error(GDUT_Task.get_message(&"BAD_CANONICAL"))
+	if GDUT_Task.canonical == null:
+		GDUT_Task.print_error(&"ADDON_NOT_READY")
 		return GDUT_CanceledTask.create(name)
 
 	#
@@ -20,11 +20,14 @@ static func create(name := &"Task.defer_idle_frame") -> Task:
 	return new(name)
 
 func finalize() -> void:
-	GDUT_Task.disconnect_idle_frame(release_complete)
+	if GDUT_Task.canonical != null:
+		GDUT_Task.canonical.idle_frame.disconnect(release_complete)
 
 #-------------------------------------------------------------------------------
+
+var _tree: SceneTree
 
 func _init(name: StringName) -> void:
 	super(name)
 
-	GDUT_Task.connect_idle_frame(release_complete)
+	GDUT_Task.canonical.idle_frame.connect(release_complete)

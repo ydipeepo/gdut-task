@@ -47,16 +47,20 @@ func _disable_plugin() -> void:
 	_remove_canonical()
 
 func _enter_tree() -> void:
-	_add_setting("gdut/task/general/enable_strict_method_check", false, 0, "")
-	_add_setting("gdut/task/general/enable_strict_signal_check", false, 0, "")
 	_add_setting("gdut/task/monitor/enable", true, 0, "")
-	_add_setting("gdut/task/monitor/max_recursion", 5, PROPERTY_HINT_RANGE, "1,100")
+	_add_setting("gdut/task/monitor/max_recursion", 3, PROPERTY_HINT_RANGE, "1,100")
 	_add_setting("gdut/task/monitor/force_finalize_when_addon_exit_tree", true, 0, "")
+	_add_setting("gdut/task/debug/suppress_error_message", false, 0, "")
+	_add_setting("gdut/task/debug/suppress_fatal_message", false, 0, "")
+	_add_setting("gdut/task/debug/enable_strict_method_validation", false, 0, "")
+	_add_setting("gdut/task/debug/enable_strict_signal_validation", false, 0, "")
 	_print("Activated.")
 
 func _exit_tree() -> void:
-	_remove_setting("gdut/task/general/enable_strict_method_check")
-	_remove_setting("gdut/task/general/enable_strict_signal_check")
 	_remove_setting("gdut/task/monitor/enable")
 	_remove_setting("gdut/task/monitor/max_recursion")
 	_remove_setting("gdut/task/monitor/force_finalize_when_addon_exit_tree")
+	_remove_setting("gdut/task/debug/suppress_error_message")
+	_remove_setting("gdut/task/debug/suppress_fatal_message")
+	_remove_setting("gdut/task/debug/enable_strict_method_validation")
+	_remove_setting("gdut/task/debug/enable_strict_signal_validation")

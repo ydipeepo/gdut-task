@@ -89,11 +89,11 @@ static func create(
 	# 事前チェック
 	#
 
-	if not GDUT_Task.has_canonical():
-		push_error(GDUT_Task.get_message(&"BAD_CANONICAL"))
+	if GDUT_Task.canonical == null:
+		GDUT_Task.print_error(&"ADDON_NOT_READY")
 		return GDUT_CanceledTask.create(name)
 	if timeout < 0.0:
-		push_error(GDUT_Task.get_message(&"BAD_TIMEOUT"))
+		GDUT_Task.print_error(&"BAD_TIMEOUT")
 		return GDUT_CanceledTask.create(name)
 	var worker: Worker
 	worker = Worker.new()
@@ -102,7 +102,7 @@ static func create(
 	worker.method = method
 	worker.body = body
 	worker.timeout = timeout
-	GDUT_Task.add_worker(worker)
+	GDUT_Task.canonical.add_child(worker)
 
 	#
 	# タスク作成
