@@ -16,7 +16,7 @@ static func create(
 	if not is_instance_valid(signal_.get_object()) or signal_.is_null():
 		GDUT_Task.print_error(&"BAD_OBJECT_ASSOCIATED_WITH_SIGNAL")
 		return GDUT_CanceledTask.create(name)
-	if not GDUT_Task.validate_task_from_filtered_signal(signal_, filter_args):
+	if not GDUT_Task.is_valid_task_from_filtered_signal(signal_, filter_args):
 		GDUT_Task.print_error(
 			&"SIGNAL_SIGNATURE_NOT_MATCH",
 			signal_.get_name())

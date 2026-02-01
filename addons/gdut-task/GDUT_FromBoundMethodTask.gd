@@ -21,13 +21,13 @@ static func create(
 	var method_argc := method.get_argument_count()
 	match method_argc - bind_args.size():
 		0:
-			if not GDUT_Task.validate_task_from_bound_method_0(method, bind_args):
+			if not GDUT_Task.is_valid_task_from_bound_method_0(method, bind_args):
 				GDUT_Task.print_error(
 					&"BAD_METHOD_ARGUMENT_SIGNATURE",
 					method.get_method())
 				return GDUT_CanceledTask.create(name)
 		1:
-			if not GDUT_Task.validate_task_from_bound_method_1(method, bind_args):
+			if not GDUT_Task.is_valid_task_from_bound_method_1(method, bind_args):
 				GDUT_Task.print_error(
 					&"BAD_METHOD_ARGUMENT_SIGNATURE",
 					method.get_method())

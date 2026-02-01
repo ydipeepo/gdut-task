@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="GDUT Task"
 config/description="This add-on helps GDScript pseudo-asynchronous scripting, including a set of classes to handle future-determined values through a shared interface."
-config/tags=PackedStringArray("gdut", "private")
+config/tags=PackedStringArray("gdut")
 run/main_scene="uid://bwdkiuyvrmueg"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/bg_color=Color(0.933333, 0.933333, 0.933333, 1)

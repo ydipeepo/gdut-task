@@ -22,7 +22,7 @@ static func create(
 			&"BAD_SIGNAL_NAME",
 			signal_name)
 		return GDUT_CanceledCancel.create(name)
-	if not GDUT_Task.validate_cancel_from_filtered_signal_name(object, signal_name, filter_args):
+	if not GDUT_Task.is_valid_cancel_from_filtered_signal_name(object, signal_name, filter_args):
 		GDUT_Task.print_error(
 			&"SIGNAL_SIGNATURE_NOT_MATCH",
 			signal_name)
