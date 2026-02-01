@@ -32,7 +32,7 @@ static func create(
 	var method_argc := object.get_method_argument_count(method_name)
 	match method_argc - bind_args.size():
 		0:
-			if not GDUT_Task.validate_task_then_bound_method_name_0(
+			if not GDUT_Task.is_valid_task_then_bound_method_name_0(
 				object,
 				method_name,
 				bind_args):
@@ -42,7 +42,7 @@ static func create(
 					method_name)
 				return GDUT_CanceledTask.create(name)
 		1:
-			if not GDUT_Task.validate_task_then_bound_method_name_1(
+			if not GDUT_Task.is_valid_task_then_bound_method_name_1(
 				object,
 				method_name,
 				bind_args):
@@ -52,7 +52,7 @@ static func create(
 					method_name)
 				return GDUT_CanceledTask.create(name)
 		2:
-			if not GDUT_Task.validate_task_then_bound_method_name_2(
+			if not GDUT_Task.is_valid_task_then_bound_method_name_2(
 				object,
 				method_name,
 				bind_args):

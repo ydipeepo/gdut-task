@@ -54,7 +54,7 @@ func _enter_tree() -> void:
 	_add_setting("gdut/task/debug/suppress_fatal_message", false, 0, "")
 	_add_setting("gdut/task/debug/enable_strict_method_validation", false, 0, "")
 	_add_setting("gdut/task/debug/enable_strict_signal_validation", false, 0, "")
-	_print("Activated.")
+#	_print("Activated.")
 
 func _exit_tree() -> void:
 	_remove_setting("gdut/task/monitor/enable")

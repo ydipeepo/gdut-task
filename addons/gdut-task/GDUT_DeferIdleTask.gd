@@ -20,8 +20,9 @@ static func create(name := &"Task.defer_idle") -> Task:
 	return new(name)
 
 func finalize() -> void:
-	if GDUT_Task.canonical != null:
-		GDUT_Task.canonical.idle.disconnect(release_complete)
+	var canonical := GDUT_Task.canonical
+	if canonical != null:
+		canonical.idle.disconnect(release_complete)
 
 #-------------------------------------------------------------------------------
 

@@ -19,19 +19,19 @@ static func create(
 	var method_argc := method.get_argument_count()
 	match method_argc:
 		0:
-			if not GDUT_Task.validate_task_then_method_0(method):
+			if not GDUT_Task.is_valid_task_then_method_0(method):
 				GDUT_Task.print_error(
 					&"BAD_METHOD_ARGUMENT_SIGNATURE",
 					method.get_method())
 				return GDUT_CanceledTask.create(name)
 		1:
-			if not GDUT_Task.validate_task_then_method_1(method):
+			if not GDUT_Task.is_valid_task_then_method_1(method):
 				GDUT_Task.print_error(
 					&"BAD_METHOD_ARGUMENT_SIGNATURE",
 					method.get_method())
 				return GDUT_CanceledTask.create(name)
 		2:
-			if not GDUT_Task.validate_task_then_method_2(method):
+			if not GDUT_Task.is_valid_task_then_method_2(method):
 				GDUT_Task.print_error(
 					&"BAD_METHOD_ARGUMENT_SIGNATURE",
 					method.get_method())

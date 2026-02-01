@@ -45,10 +45,10 @@ static func print_fatal(message_name: StringName, ...message_args: Array) -> voi
 	breakpoint
 
 @warning_ignore("unused_parameter")
-static func validate_task_from_method_0(method: Callable) -> bool:
+static func is_valid_task_from_method_0(method: Callable) -> bool:
 	return true
 
-static func validate_task_from_method_1(method: Callable) -> bool:
+static func is_valid_task_from_method_1(method: Callable) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -67,10 +67,10 @@ static func validate_task_from_method_1(method: Callable) -> bool:
 	return true
 
 @warning_ignore("unused_parameter")
-static func validate_task_from_method_name_0(object: Object, method_name: StringName) -> bool:
+static func is_valid_task_from_method_name_0(object: Object, method_name: StringName) -> bool:
 	return true
 
-static func validate_task_from_method_name_1(object: Object, method_name: StringName) -> bool:
+static func is_valid_task_from_method_name_1(object: Object, method_name: StringName) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -85,7 +85,7 @@ static func validate_task_from_method_name_1(object: Object, method_name: String
 				return false
 	return true
 
-static func validate_task_from_bound_method_0(method: Callable, bind_args: Array) -> bool:
+static func is_valid_task_from_bound_method_0(method: Callable, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -101,7 +101,7 @@ static func validate_task_from_bound_method_0(method: Callable, bind_args: Array
 				return false
 	return true
 
-static func validate_task_from_bound_method_1(method: Callable, bind_args: Array) -> bool:
+static func is_valid_task_from_bound_method_1(method: Callable, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -123,7 +123,7 @@ static func validate_task_from_bound_method_1(method: Callable, bind_args: Array
 				return false
 	return true
 
-static func validate_task_from_bound_method_name_0(object: Object, method_name: StringName, bind_args: Array) -> bool:
+static func is_valid_task_from_bound_method_name_0(object: Object, method_name: StringName, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -136,7 +136,7 @@ static func validate_task_from_bound_method_name_0(object: Object, method_name: 
 				return false
 	return true
 
-static func validate_task_from_bound_method_name_1(object: Object, method_name: StringName, bind_args: Array) -> bool:
+static func is_valid_task_from_bound_method_name_1(object: Object, method_name: StringName, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -155,7 +155,7 @@ static func validate_task_from_bound_method_name_1(object: Object, method_name: 
 				return false
 	return true
 
-static func validate_task_from_filtered_signal(signal_: Signal, filter_args: Array) -> bool:
+static func is_valid_task_from_filtered_signal(signal_: Signal, filter_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_signal_validation:
@@ -174,7 +174,7 @@ static func validate_task_from_filtered_signal(signal_: Signal, filter_args: Arr
 				return false
 	return true
 
-static func validate_task_from_filtered_signal_name(object: Object, signal_name: StringName, filter_args: Array) -> bool:
+static func is_valid_task_from_filtered_signal_name(object: Object, signal_name: StringName, filter_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_signal_validation:
@@ -192,14 +192,14 @@ static func validate_task_from_filtered_signal_name(object: Object, signal_name:
 	return true
 
 @warning_ignore("unused_parameter")
-static func validate_task_then_method_0(method: Callable) -> bool:
+static func is_valid_task_then_method_0(method: Callable) -> bool:
 	return true
 
 @warning_ignore("unused_parameter")
-static func validate_task_then_method_1(method: Callable) -> bool:
+static func is_valid_task_then_method_1(method: Callable) -> bool:
 	return true
 
-static func validate_task_then_method_2(method: Callable) -> bool:
+static func is_valid_task_then_method_2(method: Callable) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -218,14 +218,14 @@ static func validate_task_then_method_2(method: Callable) -> bool:
 	return true
 
 @warning_ignore("unused_parameter")
-static func validate_task_then_method_name_0(object: Object, method_name: StringName) -> bool:
+static func is_valid_task_then_method_name_0(object: Object, method_name: StringName) -> bool:
 	return true
 
 @warning_ignore("unused_parameter")
-static func validate_task_then_method_name_1(object: Object, method_name: StringName) -> bool:
+static func is_valid_task_then_method_name_1(object: Object, method_name: StringName) -> bool:
 	return true
 
-static func validate_task_then_method_name_2(object: Object, method_name: StringName) -> bool:
+static func is_valid_task_then_method_name_2(object: Object, method_name: StringName) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -240,7 +240,7 @@ static func validate_task_then_method_name_2(object: Object, method_name: String
 				return false
 	return true
 
-static func validate_task_then_bound_method_0(method: Callable, bind_args: Array) -> bool:
+static func is_valid_task_then_bound_method_0(method: Callable, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -256,7 +256,7 @@ static func validate_task_then_bound_method_0(method: Callable, bind_args: Array
 				return false
 	return true
 
-static func validate_task_then_bound_method_1(method: Callable, bind_args: Array) -> bool:
+static func is_valid_task_then_bound_method_1(method: Callable, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -272,7 +272,7 @@ static func validate_task_then_bound_method_1(method: Callable, bind_args: Array
 				return false
 	return true
 
-static func validate_task_then_bound_method_2(method: Callable, bind_args: Array) -> bool:
+static func is_valid_task_then_bound_method_2(method: Callable, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation and \
@@ -294,7 +294,7 @@ static func validate_task_then_bound_method_2(method: Callable, bind_args: Array
 				return false
 	return true
 
-static func validate_task_then_bound_method_name_0(object: Object, method_name: StringName, bind_args: Array) -> bool:
+static func is_valid_task_then_bound_method_name_0(object: Object, method_name: StringName, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -307,7 +307,7 @@ static func validate_task_then_bound_method_name_0(object: Object, method_name: 
 				return false
 	return true
 
-static func validate_task_then_bound_method_name_1(object: Object, method_name: StringName, bind_args: Array) -> bool:
+static func is_valid_task_then_bound_method_name_1(object: Object, method_name: StringName, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -320,7 +320,7 @@ static func validate_task_then_bound_method_name_1(object: Object, method_name: 
 				return false
 	return true
 
-static func validate_task_then_bound_method_name_2(object: Object, method_name: StringName, bind_args: Array) -> bool:
+static func is_valid_task_then_bound_method_name_2(object: Object, method_name: StringName, bind_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_method_validation:
@@ -339,7 +339,7 @@ static func validate_task_then_bound_method_name_2(object: Object, method_name: 
 				return false
 	return true
 
-static func validate_cancel_from_filtered_signal(signal_: Signal, filter_args: Array) -> bool:
+static func is_valid_cancel_from_filtered_signal(signal_: Signal, filter_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_signal_validation:
@@ -358,7 +358,7 @@ static func validate_cancel_from_filtered_signal(signal_: Signal, filter_args: A
 				return false
 	return true
 
-static func validate_cancel_from_filtered_signal_name(object: Object, signal_name: StringName, filter_args: Array) -> bool:
+static func is_valid_cancel_from_filtered_signal_name(object: Object, signal_name: StringName, filter_args: Array) -> bool:
 	if \
 		_canonical != null and \
 		_canonical._enable_strict_signal_validation:

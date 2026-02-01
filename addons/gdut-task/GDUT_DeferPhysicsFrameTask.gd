@@ -20,8 +20,9 @@ static func create(name := &"Task.defer_physics_frame") -> Task:
 	return new(name)
 
 func finalize() -> void:
-	if GDUT_Task.canonical != null:
-		GDUT_Task.canonical.physics_frame.disconnect(release_complete)
+	var canonical := GDUT_Task.canonical
+	if canonical != null:
+		canonical.physics_frame.disconnect(release_complete)
 
 #-------------------------------------------------------------------------------
 
